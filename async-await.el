@@ -4,7 +4,7 @@
 
 ;; Author: chuntaro <chuntaro@sakura-games.jp>
 ;; URL: https://github.com/chuntaro/emacs-async-await
-;; Package-Requires: ((emacs "25") (promise "20170118.431"))
+;; Package-Requires: ((emacs "25") (promise "1.0"))
 ;; Version: 1.0
 ;; Keywords: async await convenience
 
@@ -75,12 +75,12 @@
 (require 'promise)
 (require 'generator)
 
-(defconst a/a--is-error (cl-gensym "async/await--error"))
+(defconst async-await--is-error (cl-gensym "async/await--error"))
 
-(defsubst a/a--iter-throw (iterator value)
-  (iter-next iterator (list a/a--is-error iterator value)))
+(defsubst async-await--iter-throw (iterator value)
+  (iter-next iterator (list async-await--is-error iterator value)))
 
-(defun a/a--awaiter (iterator)
+(defun async-await--awaiter (iterator)
   (promise-new
    (lambda (resolve reject)
      (cl-labels ((fulfilled (value)
@@ -93,7 +93,7 @@
                            ;; Even if you raise an exception here, Promise will be swallowed.
                            ;; Therefore, it is included in the return value and propagated.
                            (condition-case reason
-                               (step (a/a--iter-throw iterator value))
+                               (step (async-await--iter-throw iterator value))
                              (iter-end-of-sequence (funcall resolve (cdr reason)))
                              (error (funcall reject reason))))
                  (step (result)
@@ -103,22 +103,22 @@
            (step (iter-next iterator))
          (iter-end-of-sequence nil))))))
 
-(defsubst a/a--check-return-value (value)
+(defsubst async-await--check-return-value (value)
   (when (and (consp value)
-             (eq (car value) a/a--is-error))
+             (eq (car value) async-await--is-error))
     (iter-close (cl-second value))
     (signal 'error (list (cl-third value))))
   value)
 
-(defmacro await (value)
-  "When called internally in Async Function, wait until Promise is resolved.
-VALUE can be any object other than Promise.
-
- (async-defun foo-async ()
-   (print (await (wait-async 0.5)))
-   (print (await 3)))"
-  (identity value)
-  (error "`await' expression is only allowed within an async function."))
+;; (defmacro await (value)
+;;   "When called internally in Async Function, wait until Promise is resolved.
+;; VALUE can be any object other than Promise.
+;;
+;;  (async-defun foo-async ()
+;;    (print (await (wait-async 0.5)))
+;;    (print (await 3)))"
+;;   (identity value)
+;;   (error "`await' expression is only allowed within an async function."))
 
 (defmacro async-defun (name arglist &rest body)
   "Define NAME as a Async Function. The Async Function returns Promise.
@@ -150,12 +150,12 @@ VALUE can be any object other than Promise.
          (exps (macroexpand-all
                 `(cl-macrolet
                      ((await (value)
-                             `(a/a--check-return-value (iter-yield ,value))))
+                             `(async-await--check-return-value (iter-yield ,value))))
                    ,@(cdr parsed-body))
                 macroexpand-all-environment)))
     `(defun ,name ,arglist
        ,@declarations
-       (a/a--awaiter
+       (async-await--awaiter
         (funcall (iter-lambda () ,exps))))))
 
 (defmacro async-lambda (arglist &rest body)
@@ -186,11 +186,11 @@ VALUE can be any object other than Promise.
   (let ((exps (macroexpand-all
                `(cl-macrolet
                     ((await (value)
-                            `(a/a--check-return-value (iter-yield ,value))))
+                            `(async-await--check-return-value (iter-yield ,value))))
                   ,@body)
                macroexpand-all-environment)))
     `(lambda ,arglist
-       (a/a--awaiter
+       (async-await--awaiter
         (funcall (iter-lambda () ,exps))))))
 
 (provide 'async-await)
