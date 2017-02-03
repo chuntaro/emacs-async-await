@@ -95,7 +95,7 @@ all the execution is completed."
              (message "await done"))))
 
 (async-defun example4 ()
-  "Any object can be passed as an argument to await."
+  "Any object can be an argument of await."
   (message "return value: %S" (await (example2)))
 
   (message "return value: %S" (await (example3)))
