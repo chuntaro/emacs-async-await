@@ -59,11 +59,11 @@ See [async-await-examples.el](https://github.com/chuntaro/emacs-async-await/blob
 
  The result of the execution is outputted from the top to the bottom
  like the order written in the code. However, asynchronously!
+```
 
-;;
-;; Example using `url-retrieve'
-;;
+An example using `url-retrieve 'as a more complicated example.
 
+```emacs-lisp
 (require 'async-await)
 (require 'url-http)
 (require 'xml)
