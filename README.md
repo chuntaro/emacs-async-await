@@ -17,7 +17,7 @@ The package name is **async-await**.
 Usage
 -----
 
-See [async-await-examples.el](https://github.com/chuntaro/emacs-async-await/blob/master/async-await-examples.el) for details.
+See [async-await-examples.el](https://github.com/chuntaro/emacs-async-await/blob/master/examples/async-await-examples.el) for details.
 
 
 ```emacs-lisp

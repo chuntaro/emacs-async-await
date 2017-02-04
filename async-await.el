@@ -1,4 +1,4 @@
-;;; async-await.el --- Async/Await for Emacs         -*- lexical-binding: t; -*-
+;;; async-await.el --- Async/Await                   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2017  chuntaro
 
