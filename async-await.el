@@ -28,6 +28,8 @@
 ;;
 ;; Usage:
 ;; See `async-await-examples.el' for details.
+;;  https://raw.githubusercontent.com/chuntaro/emacs-async-await/master/examples/async-await-examples.el
+;;  You can check the operation while downloading and running it interactively.
 ;;
 ;; (require 'async-await)
 ;;
