@@ -253,6 +253,13 @@ and resolves it in the output result."
       (message "grep result:\n%s" (await (make-grep-process "async" "async-await-examples.el")))
     (error (message "error: %s" reason))))
 
+(async-defun example10 ()
+  "Same result as `example9'."
+  (condition-case reason
+      (message "grep result:\n%s" (await (promise:make-process-string
+                                          "grep" "async" "async-await-examples.el")))
+    (error (message "error: %s" reason))))
+
 ;;
 ;; Launcher
 ;;
