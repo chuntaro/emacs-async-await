@@ -125,6 +125,7 @@
 ;;   (identity value)
 ;;   (error "`await' expression is only allowed within an async function."))
 
+;;;###autoload
 (defmacro async-defun (name arglist &rest body)
   "Define NAME as a Async Function. The Async Function returns Promise.
 
@@ -163,6 +164,7 @@
        (async-await--awaiter
         (funcall (iter-lambda () ,exps))))))
 
+;;;###autoload
 (defmacro async-lambda (arglist &rest body)
   "Return a lambda Async Function. The Async Function returns Promise.
 
