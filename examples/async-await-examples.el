@@ -260,6 +260,25 @@ and resolves it in the output result."
                                           "grep" "async" "async-await-examples.el")))
     (error (message "error: %s" reason))))
 
+(async-defun example11 ()
+  "An example using `promise:async-start'."
+  (message "fibonacci(30000) -> %s"
+           (await (promise:async-start (lambda ()
+                                         (require 'calc-ext)
+                                         (defmath fibonacci (n)
+                                           "Calculate n-th Fibonacci number."
+                                           (let ((a 1)
+                                                 (b 0)
+                                                 c
+                                                 (k 2))
+                                             (while (<= k n)
+                                               (setq c b
+                                                     b a
+                                                     a (+ b c)
+                                                     k (+ k 1)))
+                                             a))
+                                         (calc-eval "fibonacci(30000)"))))))
+
 ;;
 ;; Launcher
 ;;
