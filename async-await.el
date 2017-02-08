@@ -33,6 +33,9 @@
 ;;
 ;; (require 'async-await)
 ;;
+;; ;; Please be sure to enable it when developing.
+;; (promise-rejection-tracking-enable '((all-rejections . t)))
+;;
 ;; (defun wait-async (n)
 ;;   (promise-new (lambda (resolve _reject)
 ;;                  (run-at-time n
