@@ -204,12 +204,12 @@ BODY should be a list of Lisp expressions.
        (async-await--awaiter
         (funcall (iter-lambda () ,exps))))))
 
-(defconst async-font-lock-keywords
+(defconst async-await-font-lock-keywords
   '(("(\\(async-defun\\)\\_>[ \t']*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
      (1 font-lock-keyword-face)
      (2 font-lock-function-name-face nil t))))
 
-(font-lock-add-keywords 'emacs-lisp-mode async-font-lock-keywords)
+(font-lock-add-keywords 'emacs-lisp-mode async-await-font-lock-keywords)
 
 (provide 'async-await)
 ;;; async-await.el ends here
