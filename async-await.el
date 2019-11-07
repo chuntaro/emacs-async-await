@@ -71,7 +71,7 @@
 ;; await done
 ;;
 ;; The result of the execution is outputted from the top to the bottom
-;; like the order written in the code. However, asynchronously!
+;; like the order written in the code.  However, asynchronously!
 
 ;; TODO: Syntax highlight for async function
 
@@ -127,7 +127,7 @@
 
 ;;;###autoload
 (defmacro async-defun (name arglist &rest body)
-  "Define NAME as a Async Function. The Async Function returns Promise.
+  "Define NAME as a Async Function.  The Async Function returns Promise.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
