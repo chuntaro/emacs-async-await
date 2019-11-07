@@ -127,7 +127,7 @@
 
 ;;;###autoload
 (defmacro async-defun (name arglist &rest body)
-  "Define NAME as a Async Function.  The Async Function returns Promise.
+  "Define NAME as a Async Function which return Promise.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
@@ -166,7 +166,7 @@
 
 ;;;###autoload
 (defmacro async-lambda (arglist &rest body)
-  "Return a lambda Async Function. The Async Function returns Promise.
+  "Return a lambda Async Function which return Promise.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
