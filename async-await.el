@@ -123,7 +123,7 @@
 ;;    (print (await (wait-async 0.5)))
 ;;    (print (await 3)))"
 ;;   (identity value)
-;;   (error "`await' expression is only allowed within an async function."))
+;;   (error "`await' expression is only allowed within an async function"))
 
 ;;;###autoload
 (defmacro async-defun (name arglist &rest body)
