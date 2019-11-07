@@ -128,6 +128,8 @@
 ;;;###autoload
 (defmacro async-defun (name arglist &rest body)
   "Define NAME as a Async Function which return Promise.
+ARGLIST should take the same form as an argument list for a `defun'.
+BODY should be a list of Lisp expressions.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
@@ -167,6 +169,8 @@
 ;;;###autoload
 (defmacro async-lambda (arglist &rest body)
   "Return a lambda Async Function which return Promise.
+ARGLIST should take the same form as an argument list for a `defun'.
+BODY should be a list of Lisp expressions.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
