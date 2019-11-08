@@ -4,7 +4,7 @@
 
 ;; Author: chuntaro <chuntaro@sakura-games.jp>
 ;; URL: https://github.com/chuntaro/emacs-async-await
-;; Package-Requires: ((emacs "25") (promise "1.0"))
+;; Package-Requires: ((emacs "25.1") (promise "1.0"))
 ;; Version: 1.0
 ;; Keywords: async await convenience
 
@@ -71,7 +71,7 @@
 ;; await done
 ;;
 ;; The result of the execution is outputted from the top to the bottom
-;; like the order written in the code. However, asynchronously!
+;; like the order written in the code.  However, asynchronously!
 
 ;; TODO: Syntax highlight for async function
 
@@ -123,11 +123,13 @@
 ;;    (print (await (wait-async 0.5)))
 ;;    (print (await 3)))"
 ;;   (identity value)
-;;   (error "`await' expression is only allowed within an async function."))
+;;   (error "`await' expression is only allowed within an async function"))
 
 ;;;###autoload
 (defmacro async-defun (name arglist &rest body)
-  "Define NAME as a Async Function. The Async Function returns Promise.
+  "Define NAME as a Async Function which return Promise.
+ARGLIST should take the same form as an argument list for a `defun'.
+BODY should be a list of Lisp expressions.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
@@ -166,7 +168,9 @@
 
 ;;;###autoload
 (defmacro async-lambda (arglist &rest body)
-  "Return a lambda Async Function. The Async Function returns Promise.
+  "Return a lambda Async Function which return Promise.
+ARGLIST should take the same form as an argument list for a `defun'.
+BODY should be a list of Lisp expressions.
 
  (defun wait-async (n)
    (promise-new (lambda (resolve _reject)
@@ -200,12 +204,12 @@
        (async-await--awaiter
         (funcall (iter-lambda () ,exps))))))
 
-(defconst async-font-lock-keywords
+(defconst async-await-font-lock-keywords
   '(("(\\(async-defun\\)\\_>[ \t']*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
      (1 font-lock-keyword-face)
      (2 font-lock-function-name-face nil t))))
 
-(font-lock-add-keywords 'emacs-lisp-mode async-font-lock-keywords)
+(font-lock-add-keywords 'emacs-lisp-mode async-await-font-lock-keywords)
 
 (provide 'async-await)
 ;;; async-await.el ends here
