@@ -6,7 +6,7 @@ Inspired by the Async/Await implementation of TypeScript.
 
 This implementation uses generator.el included in Emacs 25 and [promise.el](https://github.com/chuntaro/emacs-promise).
 
-For detailed tutorials on its use, see [What about Async/Await?](https://blogs.msdn.microsoft.com/typescript/2015/11/03/what-about-asyncawait/) (TypeScript)
+For detailed tutorials on its use, see [What about Async/Await?](https://devblogs.microsoft.com/typescript/what-about-async-await/) (TypeScript)
 
 Installation
 ------------
