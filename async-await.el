@@ -4,8 +4,8 @@
 
 ;; Author: chuntaro <chuntaro@sakura-games.jp>
 ;; URL: https://github.com/chuntaro/emacs-async-await
-;; Package-Requires: ((emacs "25.1") (promise "1.0"))
-;; Version: 1.0
+;; Package-Requires: ((emacs "25.1") (promise "1.1") (iter2 "0.9.10"))
+;; Version: 1.1
 ;; Keywords: async await convenience
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -76,7 +76,7 @@
 ;;; Code:
 
 (require 'promise)
-(require 'generator)
+(require 'iter2)
 
 (defconst async-await--is-error (cl-gensym "async/await--error"))
 
@@ -162,7 +162,7 @@ BODY should be a list of Lisp expressions.
     `(defun ,name ,arglist
        ,@declarations
        (async-await--awaiter
-        (funcall (iter-lambda () ,exps))))))
+        (funcall (iter2-lambda () ,exps))))))
 
 ;;;###autoload
 (defmacro async-lambda (arglist &rest body)
@@ -200,7 +200,7 @@ BODY should be a list of Lisp expressions.
                macroexpand-all-environment)))
     `(lambda ,arglist
        (async-await--awaiter
-        (funcall (iter-lambda () ,exps))))))
+        (funcall (iter2-lambda () ,exps))))))
 
 (defconst async-await-font-lock-keywords
   '(("(\\(async-defun\\)\\_>[ \t']*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
