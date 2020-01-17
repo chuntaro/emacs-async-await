@@ -211,5 +211,28 @@ BODY should be a list of Lisp expressions.
 
 (font-lock-add-keywords 'emacs-lisp-mode async-await-font-lock-keywords)
 
+(declare-function make-autoload "autoload")
+
+;;;###autoload
+(defun async-await-advice-make-autoload (fn &rest args)
+  "Advice function for `make-autoload'.
+FN is original function and ARGS is list of arguments.
+See \"For complex cases\" section in `make-autoload'."
+  (seq-let (form file _expansion) args
+    (let ((car (car-safe form)) expand)
+      (cond
+       ;; For complex cases, try again on the macro-expansion.
+       ((and (eq car 'async-defun)
+             (macrop car)
+             (setq expand (let ((load-file-name file)) (macroexpand form)))
+             (memq (car expand) '(progn prog1 defalias)))
+        ;; Recurse on the expansion.
+        (make-autoload expand file 'expansion))
+       (t
+        (apply fn args))))))
+
+;;;###autoload
+(advice-add 'make-autoload :around #'async-await-advice-make-autoload)
+
 (provide 'async-await)
 ;;; async-await.el ends here
