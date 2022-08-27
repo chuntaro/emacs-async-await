@@ -233,12 +233,7 @@ See \"For complex cases\" section in `make-autoload'."
 (advice-add 'make-autoload :around #'async-await-advice-make-autoload)
 
 (add-to-list 'lisp-imenu-generic-expression
-             (list nil (purecopy (concat
-                                  "^\\s-*("
-                                  (eval-when-compile
-                                    (regexp-opt '("async-defun" "async-lambda") t))
-                                  "\\s-+\\(" lisp-mode-symbol-regexp "\\)"))
-                   2))
+             (list nil (concat "^\\s-*(async-defun\\s-+\\(" lisp-mode-symbol-regexp "\\)") 1))
 
 (provide 'async-await)
 ;;; async-await.el ends here
